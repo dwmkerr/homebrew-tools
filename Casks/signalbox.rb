@@ -7,8 +7,8 @@
 # bundle - the `binary` stanza symlinks it onto PATH. Universal (arm64 +
 # x86_64), signed, notarized, stapled.
 cask "signalbox" do
-  version "0.1.3"
-  sha256 "ebb7ff532cb8e055d49f02d597e33f22dd10403e7e36eb7667670649886213aa"
+  version "0.1.4"
+  sha256 "584ef8386db9ba6f2b6a0eee2dbcc145ab4a4a72ab24739afa136bd61ae21e78"
 
   url "https://github.com/dwmkerr/signalbox/releases/download/v#{version}/Signalbox-#{version}.zip"
   name "Signalbox"
@@ -19,6 +19,14 @@ cask "signalbox" do
 
   app "Signalbox.app"
   binary "#{appdir}/Signalbox.app/Contents/Resources/signalbox"
+
+  # Open it on install. Signalbox is a menu-bar app with no Dock icon, so a
+  # fresh install is otherwise invisible - nothing launches, and the caveats
+  # scroll past. Opening it puts the icon in the menu bar where the next step
+  # (scan a phone, run init) can actually be found.
+  postflight do
+    system_command "/usr/bin/open", args: ["-a", "#{appdir}/Signalbox.app"]
+  end
 
   uninstall quit:       "com.dwmkerr.signalbox",
             login_item: "Signalbox"
@@ -37,8 +45,11 @@ cask "signalbox" do
       ]
 
   caveats <<~EOS
-    Open Signalbox (it lives in the menu bar and runs the hub), then wire up
-    your coding agents:
-      signalbox init
+    Signalbox is opening now - look for its icon in the menu bar (top-right of
+    the screen). It runs the hub in the background. Next:
+
+      signalbox init      # wire up Claude Code, Cursor, Codex, ...
+
+    Then click the menu bar icon -> Connect Phone to watch your board on iOS.
   EOS
 end
