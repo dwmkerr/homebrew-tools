@@ -7,8 +7,8 @@
 # bundle - the `binary` stanza symlinks it onto PATH. Universal (arm64 +
 # x86_64), signed, notarized, stapled.
 cask "signalbox" do
-  version "0.1.5"
-  sha256 "41c6c7658e85267bb2646de3f37892d80d46bf5fa21fab25783700eac3d0c04c"
+  version "0.1.6"
+  sha256 "b5677b1f25dd09f4bd7e686d767fcc9f454c5fede42e2321c118a3a4d4e35dea"
 
   url "https://github.com/dwmkerr/signalbox/releases/download/v#{version}/Signalbox-#{version}.zip"
   name "Signalbox"
